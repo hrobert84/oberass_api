@@ -1,0 +1,23 @@
+version: "3.8"
+  
+services:
+  service:
+    image: rass
+    secrets:
+        - source: rass_test_credentials.yaml
+          target: /root/credentials.yaml
+    logging:
+      driver: splunk
+      options:
+        splunk-format: json
+        splunk-insecureskipverify: 'true'
+        splunk-token: fee1b6aa-2340-49ce-9027-f2905f676928
+        splunk-url: https://172.20.227.112:8088
+        splunk-verify-connection: 'false'
+        tag: '{{.ImageName}} | {{.Name}} | {{.ID}}'
+    ports:
+      - "5152:8081"
+
+secrets:
+  rass_test_credentials.yaml:
+    external: true
